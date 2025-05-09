@@ -1,0 +1,69 @@
+[
+    {
+      "id": 1,
+      "name": "Smart Home Box",
+      "thumbnail": "https://example.com/images/smart-home-box-thumbnail.jpg",
+      "banner": "https://i.ibb.co.com/LhH61frJ/home1.jpg",
+      "frequency": "Yearly",
+      "price": 199.99,
+      "description": "Transform your home into a smart home with curated smart devices, home automation products, and IoT gadgets.",
+      "tech_category": "Smart Home",
+      "features": [
+        "Smart Home Devices",
+        "Home Automation Tools",
+        "Cutting-edge IoT Gadgets"
+      ],
+      "subscription_benefits": [
+        "Discount on Future Smart Home Purchases",
+        "Exclusive Smart Home Tutorials",
+        "Early Access to Product Releases"
+      ],
+      "ratings": 4.8,
+      "number_of_reviews": 315
+    },
+    {
+      "id": 2,
+      "name": "AI Productivity Box",
+      "thumbnail": "https://example.com/images/ai-productivity-box-thumbnail.jpg",
+      "banner": "https://i.ibb.co.com/mVSdGp8D/home2.jpg",
+      "frequency": "Monthly",
+      "price": 49.99,
+      "description": "Boost your productivity with AI tools, smart apps, and curated tech gear to streamline your daily workflow.",
+      "tech_category": "Productivity",
+      "features": [
+        "AI-Powered Task Managers",
+        "Voice Assistants",
+        "Workflow Automation Tools"
+      ],
+      "subscription_benefits": [
+        "Free Premium App Trials",
+        "Productivity Hacks Newsletter",
+        "Member-Only AI Toolkits"
+      ],
+      "ratings": 4.6,
+      "number_of_reviews": 198
+    },
+    {
+      "id": 3,
+      "name": "Gaming Gear Box",
+      "thumbnail": "https://example.com/images/gaming-gear-box-thumbnail.jpg",
+      "banner": "https://i.ibb.co.com/Qtcntpx/onur-binay-9j-LI9-Ux6-IFo-unsplash.jpg",
+      "frequency": "Quarterly",
+      "price": 129.99,
+      "description": "Level up your gaming experience with exclusive gear, accessories, and digital content every season.",
+      "tech_category": "Gaming",
+      "features": [
+        "High-Performance Gaming Accessories",
+        "In-Game Credit Vouchers",
+        "Limited Edition Collectibles"
+      ],
+      "subscription_benefits": [
+        "Early Access to Gaming Events",
+        "Exclusive Merchandise Discounts",
+        "Free Game Beta Invites"
+      ],
+      "ratings": 4.9,
+      "number_of_reviews": 542
+    }
+  ]
+  
