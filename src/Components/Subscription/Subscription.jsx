@@ -2,7 +2,7 @@ import React from 'react';
 
 const Subscription = ({ detail }) => {
  const {banner, name, category, price, frequency} = detail
- console.log(detail)
+
   return (
     <div className="card w-80 bg-black text-white border border-black shadow-md">
       <figure className="px-4 pt-4">
