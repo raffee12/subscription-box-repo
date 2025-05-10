@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../Components/Header/Header'
 import { Outlet } from 'react-router'
+import Footer from '../Components/Footer/Footer'
 
 function Root() {
   return (
@@ -8,11 +9,12 @@ function Root() {
         <Header>
 
         </Header>
-        <div className='mt-7'>
 
-        
+
+    
     <Outlet></Outlet>
-    </div>
+    <Footer></Footer>
+ 
     </div>
   )
 }
