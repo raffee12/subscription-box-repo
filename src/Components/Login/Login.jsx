@@ -1,9 +1,50 @@
-import React from 'react';
+import React, { use, useRef, useState } from 'react';
 import { FaUserAlt, FaLock, FaEnvelope } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router';
+import { toast } from 'react-toastify';
 
+import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../../../firebase_init';
+import { AuthContext } from '../../Contexts/AuthContext';
 function Login() {
+  const [success, setsuccess] = useState(false)
+ 
+  const {signUser} = use(AuthContext)
+
+  const emailRef = useRef()
+const handleLogIn =(e)=> {
+ e.preventDefault()
+ const email = e.target.email.value;
+ const password = e.target.password.value;
+ setsuccess(false)
+
+
+ signUser(email, password)
+ .then(res=> {
+ toast.success("User Logged In successfully")
+
+ })
+ .catch(err=> {
+
+toast.error(err.message)
+ })
+
+ 
+
+}
+const handleForgetPassword =()=> {
+const email = emailRef.current.value;
+
+sendPasswordResetEmail(auth, email)
+.then(res=> {
+  toast.info("A reset password has been sent")
+})
+.catch(err=> {
+  
+  toast.error(errormessage)
+})
+}
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-200 via-purple-200 to-indigo-200 flex items-center justify-center px-4">
       <div className="card w-full max-w-md shadow-2xl bg-white/90 backdrop-blur-md rounded-2xl">
@@ -12,7 +53,7 @@ function Login() {
             Login To Your Account
           </h2>
 
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleLogIn}>
             <div>
               <label className="label text-sm font-semibold text-purple-700">
                 <FaEnvelope className="inline-block mr-2 text-purple-500" />
@@ -20,7 +61,9 @@ function Login() {
               </label>
               <input
                 type="email"
+                name ="email"
                 placeholder="you@example.com"
+                ref={emailRef}
                 className="input input-bordered w-full rounded-xl"
               />
             </div>
@@ -32,12 +75,14 @@ function Login() {
               </label>
               <input
                 type="password"
+                name='password'
                 placeholder="••••••••"
                 className="input input-bordered w-full rounded-xl"
               />
             </div>
 
-            <div className="text-right">
+            <div className="text-right" 
+            onClick={handleForgetPassword}>
               <a className="text-sm text-purple-600 hover:underline">
                 Forgot password?
               </a>

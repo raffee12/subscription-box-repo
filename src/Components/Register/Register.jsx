@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { FaUserAlt, FaLock, FaEnvelope } from 'react-icons/fa';
 import { MdPhotoCamera } from 'react-icons/md';
 import { FcGoogle } from 'react-icons/fc';
 import { FaEye } from "react-icons/fa";
 import { LuEyeOff } from "react-icons/lu";
 import { Link } from 'react-router'; 
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+
 import { auth } from '../../../firebase_init';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../../Contexts/AuthContext';
+import { updateProfile } from 'firebase/auth';
 
 function Register() {
-  const [error, setError] = useState("");
+
   const [showPassword, setShowPassword] = useState(false)
+  const { createUser } = use(AuthContext)
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
@@ -25,23 +29,32 @@ function Register() {
 
     if (!regExp.test(password)) {
       const errorMessage = `Password must contain:\n• At least one uppercase letter\n• At least one lowercase letter\n• Minimum 6 characters`;
-      setError(errorMessage);
+   
       toast.error(errorMessage);
       return;
     }
-
   
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(res => {
-        console.log(res);
-        setError("");
-        toast.success("User registered successfully");
-     
-      })
-      .catch(err => {
-        setError(err.message);
-        toast.error(err.message);
-      });
+    createUser(email, password)
+    .then(async (res) => {
+      toast.success("User Created");
+  
+      try {
+        await updateProfile(res.user, {
+          displayName: name,
+          photoURL: url,
+        });
+        console.log("User profile updated");
+      } catch (updateErr) {
+        console.error("Profile update failed:", updateErr.message);
+        toast.error(updateErr.message);
+      }
+    })
+    .catch((err) => {
+      console.error("Signup failed:", err.message);
+      toast.error(err.message);
+    });
+  
+ 
   };
 
   return (
@@ -89,7 +102,7 @@ function Register() {
               <input
                 type="text"
                 name="url"
-                placeholder="https://your-photo-link.com"
+                placeholder="Photo url"
                 className="input input-bordered w-full rounded-xl"
               />
             </div>

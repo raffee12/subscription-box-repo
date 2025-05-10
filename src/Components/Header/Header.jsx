@@ -1,11 +1,27 @@
-import React from 'react'
-import { NavLink } from 'react-router'
+import React, { use } from 'react'
+import { Link, NavLink } from 'react-router'
+import { AuthContext } from '../../Contexts/AuthContext'
+import { toast } from 'react-toastify'
+
+
 
 function Header() {
+const {user, signOutUser} = use(AuthContext)
+
+const signOut = ()=> {
+  signOutUser()
+  .then(res=> {
+  toast.success("User Signed Out Successfully")
+  })
+ .catch(err=> {
+toast.error(err.message) 
+ })
+}
   const links = <>
  <li><NavLink to={"/"}>Home</NavLink></li>
 <li><NavLink to={"/login"}>Login</NavLink></li>
 <li><NavLink to={"/register"}>Register</NavLink></li>
+
   </>
   return (
     <div>
@@ -29,7 +45,22 @@ function Header() {
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn">Button</a>
+   
+    {user ? 
+     <>
+        <div className="relative group cursor-pointer">
+              <img
+                src={user.photoURL}
+                alt="User"
+                className="w-8 h-8 rounded-full mr-[10px]" 
+              />
+               <div className="absolute right-10 top-[20px] -translate-y-1/2 font-extrabold text-gray-800 px-3 py-1 rounded  text-sm hidden group-hover:block whitespace-nowrap z-10">
+    {user.displayName || "User"}
+  </div>
+             </div>
+  
+    <a className="btn" onClick={signOut}>Sign Out</a>   </>
+     : <Link to={"/login"} className="btn">Sign In</Link>}
   </div>
 </div>
     </div>
