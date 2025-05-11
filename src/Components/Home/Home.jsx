@@ -11,6 +11,8 @@ import 'swiper/css/scrollbar';
 import { Pagination, Scrollbar, A11y } from 'swiper/modules';
 import './Home.css';
 import Details from '../Details/Details';
+import { Link } from 'react-router';
+import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
   const slides = [
@@ -21,6 +23,9 @@ const Home = () => {
 
   return (
     <>
+    <Helmet>
+      <title>Home</title>
+    </Helmet>
     <div className="w-full max-w-6xl mx-auto px-4 py-8">
       <Swiper
         modules={[Pagination, Scrollbar, A11y]}
@@ -48,7 +53,14 @@ const Home = () => {
       </Swiper>
     </div>
     <div>
+        <div className='w-8/12 mx-auto mt-2 p-6 bg-neutral flex justify-between items-center'>
+                 <h1 className='text-white text-4xl font-bold'>Become A Subscriber</h1>
+                   <button className='btn  text-black '>
+                    <Link to={"/register"}>Subscribe</Link>
+                   </button>
+        </div>
       <Details></Details>
+
     </div>
     </>
   );

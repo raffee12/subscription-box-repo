@@ -1,9 +1,13 @@
 import React from 'react';
 
+import { Link } from 'react-router';
+
 const Subscription = ({ detail }) => {
- const {banner, name, category, price, frequency} = detail
+ const {banner, name, category, price, frequency,id} = detail
 
   return (
+    <>
+   
     <div className="card w-80 bg-black text-white border border-black shadow-md">
       <figure className="px-4 pt-4">
         <img
@@ -18,12 +22,17 @@ const Subscription = ({ detail }) => {
         <p className="text-sm text-gray-300">Price: ${price}</p>
         <p className="text-sm text-gray-300">Frequency: {frequency}</p>
         <div className="card-actions justify-center mt-2">
+
           <button className="btn btn-outline border-white text-white hover:bg-white hover:text-black btn-sm">
+            <Link to={`/description/${id}`}>
             View More
+            </Link>
+         
           </button>
         </div>
       </div>
     </div>
+    </>
   );
 };
 

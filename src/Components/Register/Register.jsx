@@ -4,60 +4,69 @@ import { MdPhotoCamera } from 'react-icons/md';
 import { FcGoogle } from 'react-icons/fc';
 import { FaEye } from "react-icons/fa";
 import { LuEyeOff } from "react-icons/lu";
-import { Link } from 'react-router'; 
+import { Link, useNavigate } from 'react-router'; 
 
 import { auth } from '../../../firebase_init';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../Contexts/AuthContext';
 import { updateProfile } from 'firebase/auth';
+import { Helmet } from 'react-helmet-async';
 
 function Register() {
+ 
+  const [showPassword, setShowPassword] = useState(false);
 
-  const [showPassword, setShowPassword] = useState(false)
-  const { createUser } = use(AuthContext)
+  const { createUser,   refreshUser, googleLogIn} = use(AuthContext)
+const navigate = useNavigate()
+const handleFormSubmit = (e) => {
+  e.preventDefault();
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
+  const name = e.target.name.value;
+  const email = e.target.email.value;
+  const password = e.target.password.value;
+  const url = e.target.url.value;
 
-    const name = e.target.name.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    const url = e.target.url.value;
+  const regExp = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
-    const regExp = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+  if (!regExp.test(password)) {
+    const errorMessage = `Password must contain:\n• At least one uppercase letter\n• At least one lowercase letter\n• Minimum 6 characters`;
+    toast.error(errorMessage);
+    return;
+  }
 
+  createUser(email, password)
+    .then(async(res) => {
+      const user = res.user; 
 
-    if (!regExp.test(password)) {
-      const errorMessage = `Password must contain:\n• At least one uppercase letter\n• At least one lowercase letter\n• Minimum 6 characters`;
-   
-      toast.error(errorMessage);
-      return;
-    }
-  
-    createUser(email, password)
-    .then(async (res) => {
-      toast.success("User Created");
-  
-      try {
-        await updateProfile(res.user, {
-          displayName: name,
-          photoURL: url,
+      const profile = {
+        displayName: name,
+        photoURL: url,
+      };
+
+    
+      return updateProfile(user, profile)
+        .then(() => {
+          toast.success("User Created Successfully");
+          navigate("/profile");
+           refreshUser();
+        })
+        .catch((error) => {
+          console.error("Profile update failed:", error);
+          toast.error("Profile update failed.");
         });
-        console.log("User profile updated");
-      } catch (updateErr) {
-        console.error("Profile update failed:", updateErr.message);
-        toast.error(updateErr.message);
-      }
     })
     .catch((err) => {
-      console.error("Signup failed:", err.message);
+      console.error(err);
       toast.error(err.message);
     });
-  
- 
-  };
+};
+
 
   return (
+    <>
+ <Helmet>
+  <title>Create Account</title>
+ </Helmet>
     <div className="min-h-screen bg-gradient-to-br from-pink-200 via-purple-200 to-indigo-200 flex items-center justify-center px-4">
       <div className="card w-full max-w-md shadow-2xl bg-white/90 backdrop-blur-md rounded-2xl">
         <div className="card-body p-8 space-y-6">
@@ -140,10 +149,10 @@ function Register() {
 
           <button
             className="btn w-full border border-gray-300 rounded-xl bg-white hover:bg-gray-100 flex items-center justify-center gap-3 text-gray-700"
-            onClick={() => alert('Google signup logic goes here')}
+            onClick={() => googleLogIn().then(res=> console.log("Google")).catch(err=> console.log(err))}
           >
             <FcGoogle size={20} />
-            Sign up with Google
+            Sign In with Google
           </button>
 
           <p className="text-center text-sm text-gray-600">
@@ -155,6 +164,7 @@ function Register() {
         </div>
       </div>
     </div>
+       </>
   );
 }
 

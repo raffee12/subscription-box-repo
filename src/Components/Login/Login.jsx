@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../../firebase_init';
 import { AuthContext } from '../../Contexts/AuthContext';
+import { Helmet } from 'react-helmet-async';
 function Login() {
   const [success, setsuccess] = useState(false)
  
@@ -46,6 +47,10 @@ sendPasswordResetEmail(auth, email)
 })
 }
   return (
+    <>
+    <Helmet>
+      <title>Login</title>
+    </Helmet>
     <div className="min-h-screen bg-gradient-to-br from-pink-200 via-purple-200 to-indigo-200 flex items-center justify-center px-4">
       <div className="card w-full max-w-md shadow-2xl bg-white/90 backdrop-blur-md rounded-2xl">
         <div className="card-body p-8 space-y-6">
@@ -99,13 +104,7 @@ sendPasswordResetEmail(auth, email)
             <div className="border-t w-full border-gray-300" />
           </div>
 
-          <button
-            className="btn w-full border border-gray-300 rounded-xl bg-white hover:bg-gray-100 flex items-center justify-center gap-3 text-gray-700"
-            onClick={() => alert('Google login logic goes here')}
-          >
-            <FcGoogle size={20} />
-            Continue with Google
-          </button>
+         
 
           <p className="text-center text-sm text-gray-600">
             Not have an account?{' '}
@@ -116,6 +115,7 @@ sendPasswordResetEmail(auth, email)
         </div>
       </div>
     </div>
+    </>
   );
 }
 
