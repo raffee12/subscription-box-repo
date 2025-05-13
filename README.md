@@ -11,8 +11,15 @@ Currently, two official plugins are available:
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
-<!-- Npm Packages I have use 
+ This is a page of some product subscription 
+ Npm Packages I have use 
 
  *Helmet, react Icons, toastify
- -->
- <!-- This is a page of some product subscription -->
+  1. firebase
+  2. react
+  3. react-helmet-async
+  4.  react-icons
+  5.  react-router
+  6.  react-toastify
+  7.  swiper 
+8. tailwindcss
