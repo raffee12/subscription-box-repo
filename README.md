@@ -46,8 +46,3 @@ Sensitive information such as Firebase configuration keys is secured using `.env
 
 ---
 
-## How to Run Locally
-
-1. Clone the repository:
-   ```bash
-   git clone <your-repo-url>
